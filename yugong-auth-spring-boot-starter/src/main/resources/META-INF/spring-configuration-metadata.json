@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "yg.auth",
+      "type": "org.yugong.auth.starter.YgAuthProperties",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "yg.auth.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    },
+    {
+      "name": "yg.auth.provider-dubbo-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    },
+    {
+      "name": "yg.auth.provider-jdbc-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    },
+    {
+      "name": "yg.auth.provider-jdbc-mybatis-embed-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    }
+  ],
+  "hints": []
+}
