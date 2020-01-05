@@ -21,6 +21,9 @@
 | yugong-auth-dependency-management | 依赖管理 |
 | yugong-auth-spring-boot-starter | 提供 springboot 集成 |
 
+## 生成 mybatis 代码
+运行 `org.yugong.auth.MainMyBatisGenerator#main() ` 方法，即可在 `yugong-auth-console` 中生成 mybatis 代码。
+
 ## 编译打包
 ```shell script
 mvn clean package install
