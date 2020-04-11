@@ -26,6 +26,11 @@
       "name": "yg.auth.provider-jdbc-mybatis-embed-enable",
       "type": "java.lang.Boolean",
       "sourceType": "org.yugong.auth.starter.YgAuthProperties"
+    },
+    {
+      "name": "yg.auth.app-id",
+      "type": "java.lang.Integer",
+      "sourceType": "org.yugong.auth.starter.YgAuthProperties"
     }
   ],
   "hints": []

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.yugong.auth.dao.generate.UserRoleMapper">
-  <resultMap id="BaseResultMap" type="org.yugong.auth.entity.generate.UserRole">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+<mapper namespace="org.yugong.auth.dao.generate.ApplicationMapper">
+  <resultMap id="BaseResultMap" type="org.yugong.auth.entity.generate.Application">
+    <id column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -67,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    `id`, `user_id`, `role_id`, `create_time`, `update_time`
+    `app_id`, `app_code`, `app_name`, `create_time`, `update_time`
   </sql>
-  <select id="selectByExample" parameterType="org.yugong.auth.entity.generate.UserRoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="org.yugong.auth.entity.generate.ApplicationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from `sec_user_role`
+    from `sec_application`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,62 +89,62 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from `sec_user_role`
-    where `id` = #{id,jdbcType=INTEGER}
+    from `sec_application`
+    where `app_id` = #{appId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from `sec_user_role`
-    where `id` = #{id,jdbcType=INTEGER}
+    delete from `sec_application`
+    where `app_id` = #{appId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="org.yugong.auth.entity.generate.UserRoleExample">
-    delete from `sec_user_role`
+  <delete id="deleteByExample" parameterType="org.yugong.auth.entity.generate.ApplicationExample">
+    delete from `sec_application`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="org.yugong.auth.entity.generate.UserRole">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  <insert id="insert" parameterType="org.yugong.auth.entity.generate.Application">
+    <selectKey keyProperty="appId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into `sec_user_role` (`user_id`, `role_id`)
-    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+    insert into `sec_application` (`app_code`, `app_name`)
+    values (#{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.yugong.auth.entity.generate.UserRole">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  <insert id="insertSelective" parameterType="org.yugong.auth.entity.generate.Application">
+    <selectKey keyProperty="appId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into `sec_user_role`
+    insert into `sec_application`
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        `user_id`,
+      <if test="appCode != null">
+        `app_code`,
       </if>
-      <if test="roleId != null">
-        `role_id`,
+      <if test="appName != null">
+        `app_name`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="appCode != null">
+        #{appCode,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.yugong.auth.entity.generate.UserRoleExample" resultType="java.lang.Long">
-    select count(*) from `sec_user_role`
+  <select id="countByExample" parameterType="org.yugong.auth.entity.generate.ApplicationExample" resultType="java.lang.Long">
+    select count(*) from `sec_application`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update `sec_user_role`
+    update `sec_application`
     <set>
-      <if test="record.userId != null">
-        `user_id` = #{record.userId,jdbcType=INTEGER},
+      <if test="record.appCode != null">
+        `app_code` = #{record.appCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleId != null">
-        `role_id` = #{record.roleId,jdbcType=INTEGER},
+      <if test="record.appName != null">
+        `app_name` = #{record.appName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,29 +152,29 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update `sec_user_role`
-    set `user_id` = #{record.userId,jdbcType=INTEGER},
-      `role_id` = #{record.roleId,jdbcType=INTEGER}
+    update `sec_application`
+    set `app_code` = #{record.appCode,jdbcType=VARCHAR},
+      `app_name` = #{record.appName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yugong.auth.entity.generate.UserRole">
-    update `sec_user_role`
+  <update id="updateByPrimaryKeySelective" parameterType="org.yugong.auth.entity.generate.Application">
+    update `sec_application`
     <set>
-      <if test="userId != null">
-        `user_id` = #{userId,jdbcType=INTEGER},
+      <if test="appCode != null">
+        `app_code` = #{appCode,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        `role_id` = #{roleId,jdbcType=INTEGER},
+      <if test="appName != null">
+        `app_name` = #{appName,jdbcType=VARCHAR},
       </if>
     </set>
-    where `id` = #{id,jdbcType=INTEGER}
+    where `app_id` = #{appId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.yugong.auth.entity.generate.UserRole">
-    update `sec_user_role`
-    set `user_id` = #{userId,jdbcType=INTEGER},
-      `role_id` = #{roleId,jdbcType=INTEGER}
-    where `id` = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="org.yugong.auth.entity.generate.Application">
+    update `sec_application`
+    set `app_code` = #{appCode,jdbcType=VARCHAR},
+      `app_name` = #{appName,jdbcType=VARCHAR}
+    where `app_id` = #{appId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -6,50 +6,50 @@ import java.time.LocalDateTime;
 /**
  * 
  * 
- * @table sec_user_role
+ * @table sec_group_authority
  * @author MyBatis Generator
  * @version 1.0.0
  */
-public class UserRole implements Serializable {
+public class GroupAuthority implements Serializable {
     /**
      * 
      * 
-     * @column sec_user_role.id
+     * @column sec_group_authority.id
      */
     private Integer id;
 
     /**
      * 
      * 
-     * @column sec_user_role.user_id
+     * @column sec_group_authority.group_id
      */
-    private Integer userId;
+    private Integer groupId;
 
     /**
      * 
      * 
-     * @column sec_user_role.role_id
+     * @column sec_group_authority.authority_id
      */
-    private Integer roleId;
+    private Integer authorityId;
 
     /**
      * 
      * 
-     * @column sec_user_role.create_time
+     * @column sec_group_authority.create_time
      */
     private LocalDateTime createTime;
 
     /**
      * 
      * 
-     * @column sec_user_role.update_time
+     * @column sec_group_authority.update_time
      */
     private LocalDateTime updateTime;
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * @column sec_user_role.id
+     * @column sec_group_authority.id
      * 
      * @return 
      */
@@ -58,7 +58,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * @column sec_user_role.id
+     * @column sec_group_authority.id
      * 
      * @param id 
      */
@@ -67,43 +67,43 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * @column sec_user_role.user_id
+     * @column sec_group_authority.group_id
      * 
      * @return 
      */
-    public Integer getUserId() {
-        return userId;
+    public Integer getGroupId() {
+        return groupId;
     }
 
     /**
-     * @column sec_user_role.user_id
+     * @column sec_group_authority.group_id
      * 
-     * @param userId 
+     * @param groupId 
      */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     /**
-     * @column sec_user_role.role_id
+     * @column sec_group_authority.authority_id
      * 
      * @return 
      */
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getAuthorityId() {
+        return authorityId;
     }
 
     /**
-     * @column sec_user_role.role_id
+     * @column sec_group_authority.authority_id
      * 
-     * @param roleId 
+     * @param authorityId 
      */
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setAuthorityId(Integer authorityId) {
+        this.authorityId = authorityId;
     }
 
     /**
-     * @column sec_user_role.create_time
+     * @column sec_group_authority.create_time
      * 
      * @return 
      */
@@ -112,7 +112,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * @column sec_user_role.create_time
+     * @column sec_group_authority.create_time
      * 
      * @param createTime 
      */
@@ -121,7 +121,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * @column sec_user_role.update_time
+     * @column sec_group_authority.update_time
      * 
      * @return 
      */
@@ -130,7 +130,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * @column sec_user_role.update_time
+     * @column sec_group_authority.update_time
      * 
      * @param updateTime 
      */

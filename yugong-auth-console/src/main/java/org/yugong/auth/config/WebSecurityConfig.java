@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .expressionHandler(securityExpressionHandler)
                 // 允许特定角色访问
-                .antMatchers("/admin/user/**", "/ajax/admin/user/**").hasRole("admin")
+                .antMatchers("/admin/**", "/ajax/admin/**").hasRole("admin")
                 // 允许任何人访问
                 .antMatchers("/error").permitAll()
                 // 允许所有已登录的用户访问

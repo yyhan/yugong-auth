@@ -62,6 +62,9 @@
                     </li>
                     <#if SPRING_SECURITY_CONTEXT??>
                         <li><a href="/admin/user/manager.htm"><i class="fa fa-balance-scale"></i> 用户管理</a></li>
+                        <li><a href="/admin/application/manager.htm"><i class="fa fa-balance-scale"></i> 应用管理</a></li>
+                        <li><a href="/admin/role/manager.htm"><i class="fa fa-balance-scale"></i> 角色管理</a></li>
+                        <li><a href="/admin/group/manager.htm"><i class="fa fa-balance-scale"></i> 组管理</a></li>
                     </#if>
 <#--                    <li class="treeview">-->
 <#--                        <a href="javascript:void(0);"><i class="fa fa-bug"></i> <span> 流程管理</span>-->

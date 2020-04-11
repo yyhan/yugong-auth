@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="org.yugong.auth.entity.generate.Role">
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    `role_id`, `app_id`, `role_name`, `role_desc`, `create_time`, `update_time`
+    `role_id`, `app_id`, `role_code`, `role_name`, `role_desc`, `create_time`, `update_time`
   </sql>
   <select id="selectByExample" parameterType="org.yugong.auth.entity.generate.RoleExample" resultMap="BaseResultMap">
     select
@@ -107,10 +108,10 @@
     <selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into `sec_role` (`app_id`, `role_name`, `role_desc`
-      )
-    values (#{appId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}
-      )
+    insert into `sec_role` (`app_id`, `role_code`, `role_name`, 
+      `role_desc`)
+    values (#{appId,jdbcType=INTEGER}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{roleDesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.yugong.auth.entity.generate.Role">
     <selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
@@ -120,6 +121,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="appId != null">
         `app_id`,
+      </if>
+      <if test="roleCode != null">
+        `role_code`,
       </if>
       <if test="roleName != null">
         `role_name`,
@@ -131,6 +135,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="appId != null">
         #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
@@ -152,6 +159,9 @@
       <if test="record.appId != null">
         `app_id` = #{record.appId,jdbcType=INTEGER},
       </if>
+      <if test="record.roleCode != null">
+        `role_code` = #{record.roleCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.roleName != null">
         `role_name` = #{record.roleName,jdbcType=VARCHAR},
       </if>
@@ -166,6 +176,7 @@
   <update id="updateByExample" parameterType="map">
     update `sec_role`
     set `app_id` = #{record.appId,jdbcType=INTEGER},
+      `role_code` = #{record.roleCode,jdbcType=VARCHAR},
       `role_name` = #{record.roleName,jdbcType=VARCHAR},
       `role_desc` = #{record.roleDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -177,6 +188,9 @@
     <set>
       <if test="appId != null">
         `app_id` = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null">
+        `role_code` = #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="roleName != null">
         `role_name` = #{roleName,jdbcType=VARCHAR},
@@ -190,6 +204,7 @@
   <update id="updateByPrimaryKey" parameterType="org.yugong.auth.entity.generate.Role">
     update `sec_role`
     set `app_id` = #{appId,jdbcType=INTEGER},
+      `role_code` = #{roleCode,jdbcType=VARCHAR},
       `role_name` = #{roleName,jdbcType=VARCHAR},
       `role_desc` = #{roleDesc,jdbcType=VARCHAR}
     where `role_id` = #{roleId,jdbcType=INTEGER}

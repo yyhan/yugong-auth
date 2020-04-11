@@ -1,5 +1,6 @@
 package org.yugong.auth.common;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,14 +37,68 @@ public class DTResponse<T> extends BasePageResult<T> {
     }
 
     public int getRecordsTotal() {
-        return this.getTotal();
+        if (super.total == null) {
+            return 0;
+        }
+        return super.total;
     }
 
     public int getRecordsFiltered() {
-        return this.getFilteredTotal();
+        if (super.filteredTotal == null) {
+            return 0;
+        }
+        return super.filteredTotal;
     }
 
     public String getError() {
         return this.getMessage();
+    }
+
+    @Override
+    public DTResponse<T> success(List<T> data, Integer total) {
+        super.success(data, total, total);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> success(List<T> data, Integer total, Integer filteredTotal) {
+        super.success(data, total, filteredTotal);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> empty() {
+        super.empty();
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> error(int code, String message) {
+        super.error(code, message);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> error(int code, String message, Exception exception) {
+        super.error(code, message, exception);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> withCode(int code) {
+        super.withCode(code);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> withMessage(String message) {
+        super.withMessage(message);
+        return this;
+    }
+
+    @Override
+    public DTResponse<T> withData(List<T> data) {
+        super.withData(data);
+        return this;
     }
 }

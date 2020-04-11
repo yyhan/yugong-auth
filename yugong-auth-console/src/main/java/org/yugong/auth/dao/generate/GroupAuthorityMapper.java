@@ -2,10 +2,10 @@ package org.yugong.auth.dao.generate;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.yugong.auth.entity.generate.Group;
-import org.yugong.auth.entity.generate.GroupExample;
+import org.yugong.auth.entity.generate.GroupAuthority;
+import org.yugong.auth.entity.generate.GroupAuthorityExample;
 
-public interface GroupMapper {
+public interface GroupAuthorityMapper {
     /**
      * 
      * countByExample
@@ -14,7 +14,7 @@ public interface GroupMapper {
      * 
      * @return {@link long}
      */
-    long countByExample(GroupExample example);
+    long countByExample(GroupAuthorityExample example);
 
     /**
      * 
@@ -24,17 +24,17 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int deleteByExample(GroupExample example);
+    int deleteByExample(GroupAuthorityExample example);
 
     /**
      * 
      * deleteByPrimaryKey
      * 
-     * @param groupId
+     * @param id
      * 
      * @return {@link int}
      */
-    int deleteByPrimaryKey(Integer groupId);
+    int deleteByPrimaryKey(Integer id);
 
     /**
      * 
@@ -44,7 +44,7 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int insert(Group record);
+    int insert(GroupAuthority record);
 
     /**
      * 
@@ -54,7 +54,7 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int insertSelective(Group record);
+    int insertSelective(GroupAuthority record);
 
     /**
      * 
@@ -62,19 +62,19 @@ public interface GroupMapper {
      * 
      * @param example
      * 
-     * @return {@link java.util.List<org.yugong.auth.entity.generate.Group>}
+     * @return {@link java.util.List<org.yugong.auth.entity.generate.GroupAuthority>}
      */
-    List<Group> selectByExample(GroupExample example);
+    List<GroupAuthority> selectByExample(GroupAuthorityExample example);
 
     /**
      * 
      * selectByPrimaryKey
      * 
-     * @param groupId
+     * @param id
      * 
-     * @return {@link org.yugong.auth.entity.generate.Group}
+     * @return {@link org.yugong.auth.entity.generate.GroupAuthority}
      */
-    Group selectByPrimaryKey(Integer groupId);
+    GroupAuthority selectByPrimaryKey(Integer id);
 
     /**
      * 
@@ -85,7 +85,7 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int updateByExampleSelective(@Param("record") Group record, @Param("example") GroupExample example);
+    int updateByExampleSelective(@Param("record") GroupAuthority record, @Param("example") GroupAuthorityExample example);
 
     /**
      * 
@@ -96,7 +96,7 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int updateByExample(@Param("record") Group record, @Param("example") GroupExample example);
+    int updateByExample(@Param("record") GroupAuthority record, @Param("example") GroupAuthorityExample example);
 
     /**
      * 
@@ -106,7 +106,7 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int updateByPrimaryKeySelective(Group record);
+    int updateByPrimaryKeySelective(GroupAuthority record);
 
     /**
      * 
@@ -116,5 +116,5 @@ public interface GroupMapper {
      * 
      * @return {@link int}
      */
-    int updateByPrimaryKey(Group record);
+    int updateByPrimaryKey(GroupAuthority record);
 }

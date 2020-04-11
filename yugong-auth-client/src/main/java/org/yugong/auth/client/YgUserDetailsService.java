@@ -1,5 +1,6 @@
 package org.yugong.auth.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,9 @@ import javax.annotation.Resource;
 @Service
 public class YgUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private YgAuthContainer ygAuthContainer;
+
     @Resource
     private YgAuthService ygAuthService;
 
@@ -26,7 +30,7 @@ public class YgUserDetailsService implements UserDetailsService {
         if (username == null || username.isEmpty()) {
             throw new BadCredentialsException("请输入正确的用户名");
         }
-        YgUser user = ygAuthService.getUserByUserAccount(username);
+        YgUser user = ygAuthService.getUserByUserAccount(ygAuthContainer.getAppId(), username);
         if (user == null) {
             throw new UsernameNotFoundException("未找到用户： " + username);
         }

@@ -1,5 +1,6 @@
 package org.yugong.auth.client;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,6 +14,7 @@ import org.yugong.auth.client.entity.YgUser;
 import org.yugong.auth.client.mapper.YgAuthMapper;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -40,12 +42,12 @@ public class YgAuthServiceJdbcImpl implements YgAuthService {
     }
 
     @Override
-    public YgUser login(String userAccount, String password) {
+    public YgUser login(Integer appId, String userAccount, String password) {
         if (StringUtils.isEmpty(userAccount)) {
             return null;
         }
         return exec(mapper -> {
-            InternalUser user = mapper.getUserByUserAccount(userAccount);
+            InternalUser user = mapper.getUserByUserAccount(appId, userAccount);
             if (user == null) {
                 throw new UsernameNotFoundException("未找到用户： " + userAccount);
             }
@@ -57,12 +59,12 @@ public class YgAuthServiceJdbcImpl implements YgAuthService {
     }
 
     @Override
-    public YgUser getUserByUserAccount(String userAccount) {
+    public YgUser getUserByUserAccount(Integer appId, String userAccount) {
         if (StringUtils.isEmpty(userAccount)) {
             return null;
         }
         return exec(mapper -> {
-            InternalUser user = mapper.getUserByUserAccount(userAccount);
+            InternalUser user = mapper.getUserByUserAccount(appId, userAccount);
             if (user == null) {
                 throw new UsernameNotFoundException("未找到用户： " + userAccount);
             }
@@ -71,52 +73,72 @@ public class YgAuthServiceJdbcImpl implements YgAuthService {
     }
 
     @Override
-    public YgAuthority getAuthorityByCode(String authorityCode) {
+    public YgAuthority getAuthorityByCode(Integer appId, String authorityCode) {
         if (StringUtils.isEmpty(authorityCode)) {
             return null;
         }
         return exec(mapper -> {
-            return mapper.getAuthorityByCode(authorityCode);
+            return mapper.getAuthorityByCode(appId, authorityCode);
         });
     }
 
     @Override
-    public boolean existUserAuthority(Integer userId, Integer authorityId) {
+    public boolean existUserAuthority(Integer appId, Integer userId, Integer authorityId) {
         if (userId == null || authorityId == null) {
             return false;
         }
         return exec(mapper -> {
-            return mapper.existUserAuthority(userId, authorityId);
+            return mapper.existUserAuthority(userId, appId, authorityId);
         });
     }
 
     @Override
-    public boolean existGroupAuthority(Integer userId, Integer authorityId) {
+    public boolean existGroupAuthority(Integer appId, Integer userId, Integer authorityId) {
         if (userId == null || authorityId == null) {
             return false;
         }
         return exec(mapper -> {
-            return mapper.existGroupAuthority(userId, authorityId);
+            return mapper.existGroupAuthority(userId, appId, authorityId);
         });
     }
 
     @Override
-    public boolean existRoleAuthority(Integer userId, Integer authorityId) {
+    public boolean existRoleAuthority(Integer appId, Integer userId, Integer authorityId) {
         if (userId == null || authorityId == null) {
             return false;
         }
         return exec(mapper -> {
-            return mapper.existRoleAuthority(userId, authorityId);
+            return mapper.existRoleAuthority(userId, appId, authorityId);
         });
     }
 
     @Override
-    public boolean existUserRole(Integer userId, String roleCode) {
+    public boolean existAnyUserAuthority(Integer appId, Integer userId, List<String> authorityCodes) {
+        if (CollectionUtils.isEmpty(authorityCodes)) {
+            return false;
+        }
+        for (String authorityCode : authorityCodes) {
+            if(exec(mapper -> {
+                return mapper.existUserAuthorityCode(userId, appId, authorityCode);
+            })){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
-    public boolean existUserGroup(Integer userId, String groupCode) {
+    public boolean existUserRole(Integer appId, Integer userId, String roleCode) {
+        if (userId == null || appId == null || roleCode == null) {
+            return false;
+        }
+        return exec(mapper -> {
+            return mapper.existUserRole(userId, appId, roleCode);
+        });
+    }
+
+    @Override
+    public boolean existUserGroup(Integer appId, Integer userId, String groupCode) {
         return false;
     }
 }

@@ -9,8 +9,8 @@ import java.util.List;
  * @date 2019/12/12 22:00
  */
 public class BasePageResult<T> extends BaseResult<List<T>> implements Serializable {
-    private Integer total;
-    private Integer filteredTotal;
+    protected Integer total;
+    protected Integer filteredTotal;
 
     public BasePageResult() {
     }
@@ -54,26 +54,31 @@ public class BasePageResult<T> extends BaseResult<List<T>> implements Serializab
         return this;
     }
 
+    @Override
     public BasePageResult<T> error(int code, String message) {
         super.error(code, message);
         return this;
     }
 
+    @Override
     public BasePageResult<T> error(int code, String message, Exception exception) {
         super.error(code, message, exception);
         return this;
     }
 
+    @Override
     public BasePageResult<T> withCode(int code) {
         super.withCode(code);
         return this;
     }
 
+    @Override
     public BasePageResult<T> withMessage(String message) {
         super.withMessage(message);
         return this;
     }
 
+    @Override
     public BasePageResult<T> withData(List<T> data) {
         super.withData(data);
         return this;

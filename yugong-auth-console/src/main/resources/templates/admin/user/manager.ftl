@@ -1,6 +1,6 @@
 <#compress >
 <#-- 必须引入layout宏定义文件 -->
-    <#import "../_common/layout_admin.ftl" as layout >
+    <#import "../../_common/layout_admin.ftl" as layout >
 
 <#-- 定义title -->
     <#assign title="用户管理"/>
@@ -108,9 +108,10 @@
                         defaultContent: ""
                     }],
                     columns: [
-                        {data: "userId", title: "用户Id", width: "23em"},
-                        {data: "userAccount", title: "用户账号", width: "23em"},
-                        {data: "userName", title: "用户名称", width: "20em"},
+                        {data: "userId", title: "用户Id", width: "5em"},
+                        {data: "userAccount", title: "用户账号", width: "20em"},
+                        {data: "userName", title: "用户名称", width: "10em"},
+                        {data: "createTime", title: "创建时间", width: "10em"},
                         {
                             title: "操作", width: "10em", render: function (data, type, row, meta) {
                                 let html = '';

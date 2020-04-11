@@ -26,6 +26,13 @@ public class Role implements Serializable {
     private Integer appId;
 
     /**
+     * 角色标识
+     * 
+     * @column sec_role.role_code
+     */
+    private String roleCode;
+
+    /**
      * 角色名称
      * 
      * @column sec_role.role_name
@@ -89,6 +96,24 @@ public class Role implements Serializable {
      */
     public void setAppId(Integer appId) {
         this.appId = appId;
+    }
+
+    /**
+     * @column sec_role.role_code
+     * 
+     * @return 角色标识
+     */
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    /**
+     * @column sec_role.role_code
+     * 
+     * @param roleCode 角色标识
+     */
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
     /**

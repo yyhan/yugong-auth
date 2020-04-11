@@ -10,7 +10,6 @@ import org.yugong.auth.entity.generate.User;
 import org.yugong.auth.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * @author 小天
@@ -22,10 +21,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(path = {"/admin/user/manager.htm", "/admin"})
     public String userManager(HttpServletRequest request) {
-        return "admin/userManager";
+        return "admin/user/manager";
     }
 
     @ResponseBody

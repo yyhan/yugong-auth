@@ -44,7 +44,7 @@
                              type="XMLMAPPER"/>
 
         <table tableName="sec_application" delimitIdentifiers="true" delimitAllColumns="true"
-               domainObjectName="Authority">
+               domainObjectName="Application">
             <generatedKey column="app_id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="app_id" isGeneratedAlways="true"/>
 
@@ -68,7 +68,7 @@
             <columnOverride column="update_time" isGeneratedAlways="true"/>
         </table>
         <table tableName="sec_group_authority" delimitIdentifiers="true" delimitAllColumns="true"
-               domainObjectName="Group">
+               domainObjectName="GroupAuthority">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="id" isGeneratedAlways="true"/>
 
@@ -116,7 +116,7 @@
             <columnOverride column="update_time" isGeneratedAlways="true"/>
         </table>
         <table tableName="sec_user_authority" delimitIdentifiers="true" delimitAllColumns="true"
-               domainObjectName="UserRole">
+               domainObjectName="UserAuthority">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="id" isGeneratedAlways="true"/>
 

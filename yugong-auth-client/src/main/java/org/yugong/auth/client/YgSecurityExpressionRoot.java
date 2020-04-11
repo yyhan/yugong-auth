@@ -10,6 +10,7 @@ import org.yugong.auth.client.entity.YgAuthority;
 import org.yugong.auth.client.entity.YgUser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 /**
  * spring security 表达式验证
@@ -30,7 +31,8 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
      */
     public final boolean denyAll = false;
 
-    protected       YgAuthService      ygAuthService;
+    protected final YgAuthContainer    ygAuthContainer;
+    protected final YgAuthService      ygAuthService;
     protected final Authentication     authentication;
     protected final HttpServletRequest request;
     private         String             userAccount;
@@ -41,7 +43,8 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
 
     private AuthenticationTrustResolver trustResolver;
 
-    public YgSecurityExpressionRoot(Authentication authentication, FilterInvocation fi, YgAuthService ygAuthService) {
+    public YgSecurityExpressionRoot(YgAuthContainer ygAuthContainer, Authentication authentication, FilterInvocation fi, YgAuthService ygAuthService) {
+        this.ygAuthContainer = ygAuthContainer;
         this.authentication = authentication;
         this.request = fi.getRequest();
         this.ygAuthService = ygAuthService;
@@ -53,7 +56,7 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
             }
         }
         this.authorityCode = request.getRequestURI();
-        this.ygAuthority = ygAuthService.getAuthorityByCode(this.authorityCode);
+        this.ygAuthority = ygAuthService.getAuthorityByCode(this.ygAuthContainer.getAppId(), this.authorityCode);
         if (this.ygAuthority != null) {
             this.authorizationType = AuthorizationType.parse(this.ygAuthority.getAuthorizationType());
         }
@@ -73,11 +76,11 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
         if (!isAuthenticated()) {
             return false;
         }
-        YgAuthority ygAuthority = ygAuthService.getAuthorityByCode(authority);
+        YgAuthority ygAuthority = ygAuthService.getAuthorityByCode(this.ygAuthContainer.getAppId(), authority);
         if (ygAuthority == null) {
             return false;
         }
-        return ygAuthService.existUserAuthority(user.getUserId(), ygAuthority.getAuthorityId());
+        return ygAuthService.existUserAuthority(this.ygAuthContainer.getAppId(), user.getUserId(), ygAuthority.getAuthorityId());
     }
 
     @Override
@@ -87,12 +90,12 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
 
     @Override
     public boolean hasRole(String role) {
-        return isAuthenticated() && ygAuthService.existUserRole(user.getUserId(), role);
+        return isAuthenticated() && ygAuthService.existUserRole(ygAuthContainer.getAppId(), user.getUserId(), role);
     }
 
     @Override
     public boolean hasAnyRole(String... roles) {
-        return false;
+        return isAuthenticated() && ygAuthService.existAnyUserAuthority(ygAuthContainer.getAppId(), user.getUserId(), Arrays.asList(roles));
     }
 
     @Override
@@ -122,15 +125,15 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
             return true;
         }
         if (AuthorizationType.group == this.authorizationType) {
-            return ygAuthService.existGroupAuthority(user.getUserId(), this.ygAuthority.getAuthorityId());
+            return ygAuthService.existGroupAuthority(this.ygAuthContainer.getAppId(), user.getUserId(), this.ygAuthority.getAuthorityId());
         }
         if (AuthorizationType.role == this.authorizationType) {
-            return ygAuthService.existRoleAuthority(user.getUserId(), this.ygAuthority.getAuthorityId());
+            return ygAuthService.existRoleAuthority(this.ygAuthContainer.getAppId(), user.getUserId(), this.ygAuthority.getAuthorityId());
         }
         if (AuthorizationType.user == this.authorizationType) {
-            return ygAuthService.existUserAuthority(user.getUserId(), this.ygAuthority.getAuthorityId());
+            return ygAuthService.existUserAuthority(this.ygAuthContainer.getAppId(), user.getUserId(), this.ygAuthority.getAuthorityId());
         }
-        return ygAuthService.existUserAuthority(user.getUserId(), this.ygAuthority.getAuthorityId());
+        return ygAuthService.existUserAuthority(this.ygAuthContainer.getAppId(), user.getUserId(), this.ygAuthority.getAuthorityId());
     }
 
     @Override
@@ -160,6 +163,7 @@ public class YgSecurityExpressionRoot implements SecurityExpressionOperations {
      *
      * @param ipAddress the address or range of addresses from which the request must
      *                  come.
+     *
      * @return true if the IP address of the current request is in the required range.
      */
     public boolean hasIpAddress(String ipAddress) {

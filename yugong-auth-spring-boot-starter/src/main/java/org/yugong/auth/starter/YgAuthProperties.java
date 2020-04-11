@@ -14,6 +14,8 @@ public class YgAuthProperties {
     private Boolean providerJdbcEnable;
     private Boolean providerJdbcMybatisEmbedEnable;
 
+    private Integer appId;
+
     public Boolean getEnable() {
         return enable;
     }
@@ -44,5 +46,13 @@ public class YgAuthProperties {
 
     public void setProviderJdbcMybatisEmbedEnable(Boolean providerJdbcMybatisEmbedEnable) {
         this.providerJdbcMybatisEmbedEnable = providerJdbcMybatisEmbedEnable;
+    }
+
+    public Integer getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Integer appId) {
+        this.appId = appId;
     }
 }

@@ -1,5 +1,6 @@
 package org.yugong.auth.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.expression.SecurityExpressionOperations;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -17,6 +18,9 @@ import javax.annotation.Resource;
  */
 public class YgSecurityExpressionHandler extends DefaultWebSecurityExpressionHandler {
 
+    @Autowired
+    private YgAuthContainer ygAuthContainer;
+
     @Resource
     private YgAuthService ygAuthService;
 
@@ -24,7 +28,7 @@ public class YgSecurityExpressionHandler extends DefaultWebSecurityExpressionHan
 
     @Override
     protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication, FilterInvocation fi) {
-        YgSecurityExpressionRoot root = new YgSecurityExpressionRoot(authentication, fi, ygAuthService);
+        YgSecurityExpressionRoot root = new YgSecurityExpressionRoot(ygAuthContainer, authentication, fi, ygAuthService);
         root.setTrustResolver(trustResolver);
         return root;
     }
