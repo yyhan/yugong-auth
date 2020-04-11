@@ -40,7 +40,10 @@ public class UserServiceImpl implements UserService {
     public DTResponse<User> pageList(String userAccount, String userName, DTRequest dtRequest) {
         DTResponse<User> response = new DTResponse<>(dtRequest);
         UserExample example = new UserExample();
-        example.createCriteria().andUserAccountEqualTo(userAccount);
+        UserExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotEmpty(userAccount)) {
+            criteria.andUserAccountEqualTo(userAccount);
+        }
 
         int total = (int) userMapper.countByExample(example);
         if (total == 0) {
